@@ -1,0 +1,140 @@
+<!-- <div > -->
+<form [formGroup]="form">
+
+  <mat-grid-list
+    cols="6"
+    rowHeight="80"
+  >
+    <mat-grid-tile
+      colspan="6"
+      rowspan="1"
+    >
+      <h1>IPL Player Selection</h1>
+    </mat-grid-tile>
+
+
+    <mat-grid-tile
+      colspan="3"
+      rowspan="1"
+    >
+      <mat-form-field appearance="fill">
+        <mat-label>Select Team One</mat-label>
+        <mat-select formControlName="team1">
+          <ng-container *ngFor="let t of team;">
+            <mat-option [value]="t.value">
+              {{t.name}}
+            </mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile
+      colspan="3"
+      rowspan="1"
+      *ngIf="getControlValue('team1')"
+    >
+      <mat-form-field appearance="fill">
+        <mat-label>Select Team Two</mat-label>
+        <mat-select formControlName="team2">
+          <ng-container *ngFor="let t of team;">
+            <mat-option [value]="t.value">
+              {{t.name}}
+            </mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile
+      colspan="2"
+      rowspan="12"
+    >
+      <table formGroupName="players">
+        <tr>
+          <th>Name</th>
+          <th>Player 1</th>
+          <th>Player 2</th>
+        </tr>
+        <tr
+          *ngFor="let per of persons"
+          [formGroupName]="per"
+        >
+          <td>{{ per }}</td>
+          <td>
+            <mat-form-field appearance="outline">
+              <mat-label>Select</mat-label>
+              <mat-select formControlName="player1">
+                <ng-container *ngFor="let t of teamList">
+                  <mat-option [value]="t">
+                    {{t}}
+                  </mat-option>
+                </ng-container>
+              </mat-select>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field appearance="outline">
+              <mat-label>Select</mat-label>
+              <mat-select formControlName="player2">
+                <ng-container *ngFor="let t of teamList">
+                  <mat-option [value]="t">
+                    {{t}}
+                  </mat-option>
+                </ng-container>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+    </mat-grid-tile>
+
+    <mat-grid-tile
+      colspan="1"
+      rowspan="12"
+      *ngIf="getControlValue('team1')"
+    >
+      <table formGroupName="teamOne">
+        <tr *ngFor="let t of team1Arr">
+          <td>
+            <mat-form-field appearance="outline">
+              <mat-label>{{ t }}</mat-label>
+              <mat-select [formControlName]="t">
+                <ng-container *ngFor="let p of getPlayerList(getControlValue('team1'))">
+                  <mat-option [value]="p">
+                    {{p}}
+                  </mat-option>
+                </ng-container>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+    </mat-grid-tile>
+
+    <mat-grid-tile
+      colspan="1"
+      rowspan="12"
+      *ngIf="getControlValue('team2')"
+    >
+      <table formGroupName="teamTwo">
+        <tr *ngFor="let t of team2Arr">
+          <td>
+            <mat-form-field appearance="outline">
+              <mat-label>{{ t }}</mat-label>
+              <mat-select [formControlName]="t">
+                <ng-container *ngFor="let p of getPlayerList(getControlValue('team2'))">
+                  <mat-option [value]="p">
+                    {{p}}
+                  </mat-option>
+                </ng-container>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+    </mat-grid-tile>
+
+  </mat-grid-list>
+</form>
+<!-- </div> -->
